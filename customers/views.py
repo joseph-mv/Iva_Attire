@@ -15,16 +15,17 @@ def show_account(req):
             address=req.POST.get('address')
             phone=req.POST.get('phone')
             password=req.POST.get('password')
-
             # create user account
             user=User.objects.create_user(username=username,email=email ,password=password)            
             
             # crete Customer
             customer=Customer.objects.create(user=user,phone=phone,address=address)
+            print(customer)
             messages.success(req,'User registered successfully')
 
     except Exception as e:
         error_msg=str(e)
+        print(error_msg)
         messages.error(req,'Duplicate username or Invalid credentials')
 
     if req.POST and 'login' in req.POST:
